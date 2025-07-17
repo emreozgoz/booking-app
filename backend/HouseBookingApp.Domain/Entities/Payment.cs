@@ -55,6 +55,34 @@ public class Payment : BaseEntity
         return Status == PaymentStatus.Refunded;
     }
 
+    public static Payment Create(Guid reservationId, Money amount, PaymentMethod method)
+    {
+        if (reservationId == Guid.Empty)
+            throw new ArgumentException("Reservation ID cannot be empty");
+
+        if (amount == null)
+            throw new ArgumentNullException(nameof(amount));
+
+        if (amount.IsZero || amount.IsNegative)
+            throw new ArgumentException("Payment amount must be positive");
+
+        return new Payment(reservationId, amount, method);
+    }
+
+    public void MarkAsSuccessful(string transactionId)
+    {
+        if (Status != PaymentStatus.Pending)
+            throw new InvalidOperationException("Only pending payments can be marked as successful");
+
+        if (string.IsNullOrWhiteSpace(transactionId))
+            throw new ArgumentException("Transaction ID cannot be empty");
+
+        Status = PaymentStatus.Completed;
+        TransactionId = transactionId;
+        ProcessedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     public void MarkAsCompleted(string transactionId, string paymentGateway)
     {
         if (Status != PaymentStatus.Pending)
