@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(dotnet build)",
+      "Bash(/usr/bin/dotnet build:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" run --no-build)",
+      "Bash(dotnet ef migrations add:*)",
+      "Bash(/usr/bin/dotnet ef migrations add:*)",
+      "Bash(dotnet --version)",
+      "Bash(export:*)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" --version)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef migrations add UpdateUserModel --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" tool install --global dotnet-ef)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" tool install --global dotnet-ef --source https://api.nuget.org/v3/index.json)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef database update --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef migrations add AddPropertyImageEntity --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)",
+      "Bash(taskkill:*)",
+      "Bash(true)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" build --no-restore)",
+      "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef migrations add AddRoomEntities --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)"
+    ],
+    "deny": []
+  }
+}
