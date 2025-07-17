@@ -12,8 +12,12 @@ public class Review : BaseEntity
     public string Comment { get; set; } = string.Empty;
     public bool IsVerified { get; set; } = false;
     public bool IsVisible { get; set; } = true;
+    public bool IsDeleted { get; set; } = false;
+    public bool IsInappropriate { get; set; } = false;
     public DateTime? VerifiedAt { get; set; }
     public Guid? VerifiedBy { get; set; }
+    public DateTime? DeletedAt { get; set; }
+    public DateTime? MarkedInappropriateAt { get; set; }
 
     // Navigation properties
     public virtual Property Property { get; set; } = null!;
@@ -76,6 +80,79 @@ public class Review : BaseEntity
 
         Title = title;
         Comment = comment;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public static Review Leave(Guid userId, Guid propertyId, int rating, string comment)
+    {
+        if (userId == Guid.Empty)
+            throw new ArgumentException("User ID cannot be empty");
+
+        if (propertyId == Guid.Empty)
+            throw new ArgumentException("Property ID cannot be empty");
+
+        if (rating < 1 || rating > 5)
+            throw new ArgumentException("Rating must be between 1 and 5");
+
+        if (string.IsNullOrWhiteSpace(comment))
+            throw new ArgumentException("Review comment cannot be empty");
+
+        return new Review(propertyId, userId, rating, "Review", comment);
+    }
+
+    public void UpdateComment(string comment)
+    {
+        if (IsDeleted)
+            throw new InvalidOperationException("Cannot update a deleted review");
+
+        if (string.IsNullOrWhiteSpace(comment))
+            throw new ArgumentException("Review comment cannot be empty");
+
+        Comment = comment;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void Delete()
+    {
+        if (IsDeleted)
+            throw new InvalidOperationException("Review is already deleted");
+
+        IsDeleted = true;
+        IsVisible = false;
+        DeletedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void MarkAsInappropriate()
+    {
+        if (IsDeleted)
+            throw new InvalidOperationException("Cannot mark a deleted review as inappropriate");
+
+        IsInappropriate = true;
+        IsVisible = false;
+        MarkedInappropriateAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void Restore()
+    {
+        if (!IsDeleted)
+            throw new InvalidOperationException("Review is not deleted");
+
+        IsDeleted = false;
+        IsVisible = true;
+        DeletedAt = null;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void MarkAsAppropriate()
+    {
+        if (!IsInappropriate)
+            throw new InvalidOperationException("Review is not marked as inappropriate");
+
+        IsInappropriate = false;
+        IsVisible = true;
+        MarkedInappropriateAt = null;
         UpdatedAt = DateTime.UtcNow;
     }
 }

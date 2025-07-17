@@ -3,6 +3,7 @@ using System;
 using HouseBookingApp.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HouseBookingApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250717070535_UpdateReviewEntity")]
+    partial class UpdateReviewEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,45 +158,6 @@ namespace HouseBookingApp.Infrastructure.Migrations
                     b.ToTable("Houses");
                 });
 
-            modelBuilder.Entity("HouseBookingApp.Domain.Entities.Image", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Alt")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsMarkedForDeletion")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsPrimary")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("MarkedForDeletionAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("HouseBookingApp.Domain.Entities.Payment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -330,34 +294,6 @@ namespace HouseBookingApp.Infrastructure.Migrations
                     b.HasIndex("PropertyId");
 
                     b.ToTable("PropertyImages");
-                });
-
-            modelBuilder.Entity("HouseBookingApp.Domain.Entities.PropertyImageV2", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PropertyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.HasIndex("PropertyId", "ImageId")
-                        .IsUnique();
-
-                    b.ToTable("PropertyImagesV2");
                 });
 
             modelBuilder.Entity("HouseBookingApp.Domain.Entities.Reservation", b =>
@@ -631,34 +567,6 @@ namespace HouseBookingApp.Infrastructure.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("RoomImages");
-                });
-
-            modelBuilder.Entity("HouseBookingApp.Domain.Entities.RoomImageV2", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.HasIndex("RoomId", "ImageId")
-                        .IsUnique();
-
-                    b.ToTable("RoomImagesV2");
                 });
 
             modelBuilder.Entity("HouseBookingApp.Domain.Entities.RoomPriceOverride", b =>
@@ -1038,25 +946,6 @@ namespace HouseBookingApp.Infrastructure.Migrations
                     b.Navigation("Property");
                 });
 
-            modelBuilder.Entity("HouseBookingApp.Domain.Entities.PropertyImageV2", b =>
-                {
-                    b.HasOne("HouseBookingApp.Domain.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HouseBookingApp.Domain.Entities.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Image");
-
-                    b.Navigation("Property");
-                });
-
             modelBuilder.Entity("HouseBookingApp.Domain.Entities.Reservation", b =>
                 {
                     b.HasOne("HouseBookingApp.Domain.Entities.User", "Guest")
@@ -1257,25 +1146,6 @@ namespace HouseBookingApp.Infrastructure.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("HouseBookingApp.Domain.Entities.RoomImageV2", b =>
-                {
-                    b.HasOne("HouseBookingApp.Domain.Entities.Image", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HouseBookingApp.Domain.Entities.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Image");
 
                     b.Navigation("Room");
                 });
