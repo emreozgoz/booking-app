@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
+import { imageService } from '../services/api';
 
 interface Image {
   id: string;
@@ -45,14 +45,14 @@ const ImagesPage: React.FC = () => {
 
   const handleCreateImage = async () => {
     try {
-      const response = await api.post('/images', {
+      const response = await imageService.createImage({
         url: uploadForm.url,
         alt: uploadForm.alt,
         isPrimary: uploadForm.isPrimary,
         order: uploadForm.order
       });
       
-      setImages([...images, response.data]);
+      setImages([...images, response]);
       setShowUploadForm(false);
       setUploadForm({ url: '', alt: '', isPrimary: false, order: 0 });
     } catch (error) {
@@ -62,7 +62,7 @@ const ImagesPage: React.FC = () => {
 
   const handleSetAsPrimary = async (imageId: string) => {
     try {
-      await api.post(`/images/${imageId}/set-primary`);
+      await imageService.setAsPrimary(imageId);
       // Update the images state to reflect the change
       setImages(images.map(img => ({
         ...img,
@@ -75,7 +75,7 @@ const ImagesPage: React.FC = () => {
 
   const handleMarkForDeletion = async (imageId: string) => {
     try {
-      await api.post(`/images/${imageId}/mark-for-deletion`);
+      await imageService.markForDeletion(imageId);
       setImages(images.map(img => 
         img.id === imageId ? { ...img, isDeleted: true } : img
       ));

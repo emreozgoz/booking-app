@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
+import { propertyService } from '../services/api';
 
 interface Property {
   id: string;
@@ -43,15 +43,15 @@ const PropertyDetailsPage: React.FC = () => {
   const fetchProperty = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/properties/${id}`);
-      setProperty(response.data);
+      const response = await propertyService.getPropertyById(id!);
+      setProperty(response);
       setEditForm({
-        name: response.data.name,
-        description: response.data.description,
-        propertyType: response.data.propertyType.name,
-        city: response.data.location.city,
-        country: response.data.location.country,
-        address: response.data.location.address || ''
+        name: response.name,
+        description: response.description,
+        propertyType: response.propertyType.name,
+        city: response.location.city,
+        country: response.location.country,
+        address: response.location.address || ''
       });
     } catch (error) {
       console.error('Error fetching property:', error);
@@ -62,7 +62,7 @@ const PropertyDetailsPage: React.FC = () => {
 
   const handleSave = async () => {
     try {
-      await api.put(`/properties/${id}`, {
+      await propertyService.updateProperty(id!, {
         name: editForm.name,
         description: editForm.description,
         propertyType: {
@@ -89,8 +89,11 @@ const PropertyDetailsPage: React.FC = () => {
     if (!property) return;
     
     try {
-      const endpoint = property.isActive ? 'deactivate' : 'activate';
-      await api.post(`/properties/${id}/${endpoint}`);
+      if (property.isActive) {
+        await propertyService.deactivateProperty(id!);
+      } else {
+        await propertyService.activateProperty(id!);
+      }
       fetchProperty();
     } catch (error) {
       console.error('Error toggling property status:', error);

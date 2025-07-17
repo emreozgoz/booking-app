@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
+import { roomService } from '../services/api';
 
 interface Room {
   id: string;
@@ -41,8 +41,8 @@ const RoomsPage: React.FC = () => {
   const fetchRooms = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/rooms?propertyId=${propertyId}&pageSize=50`);
-      setRooms(response.data.items || []);
+      const response = await roomService.getRooms({ propertyId, pageSize: 50 });
+      setRooms(response.items || []);
     } catch (error) {
       console.error('Error fetching rooms:', error);
     } finally {
@@ -66,7 +66,7 @@ const RoomsPage: React.FC = () => {
     if (!selectedRoom) return;
 
     try {
-      await api.put(`/rooms/${selectedRoom.id}/info`, {
+      await roomService.updateRoomInfo(selectedRoom.id, {
         type: {
           name: editForm.type,
           description: '',
@@ -87,32 +87,33 @@ const RoomsPage: React.FC = () => {
     }
   };
 
-  const handleSetAvailability = async (roomId: string, date: string, isAvailable: boolean) => {
-    try {
-      await api.post(`/rooms/${roomId}/availability`, {
-        date: new Date(date).toISOString(),
-        isAvailable
-      });
-      console.log('Availability updated successfully');
-    } catch (error) {
-      console.error('Error setting availability:', error);
-    }
-  };
+  // Future implementation for availability and price override
+  // const handleSetAvailability = async (roomId: string, date: string, isAvailable: boolean) => {
+  //   try {
+  //     await roomService.setAvailability(roomId, {
+  //       date: new Date(date).toISOString(),
+  //       isAvailable
+  //     });
+  //     console.log('Availability updated successfully');
+  //   } catch (error) {
+  //     console.error('Error setting availability:', error);
+  //   }
+  // };
 
-  const handleSetPriceOverride = async (roomId: string, date: string, price: number) => {
-    try {
-      await api.post(`/rooms/${roomId}/price-override`, {
-        date: new Date(date).toISOString(),
-        price: {
-          amount: price,
-          currency: 'USD'
-        }
-      });
-      console.log('Price override set successfully');
-    } catch (error) {
-      console.error('Error setting price override:', error);
-    }
-  };
+  // const handleSetPriceOverride = async (roomId: string, date: string, price: number) => {
+  //   try {
+  //     await roomService.setPriceOverride(roomId, {
+  //       date: new Date(date).toISOString(),
+  //       price: {
+  //         amount: price,
+  //         currency: 'USD'
+  //       }
+  //     });
+  //     console.log('Price override set successfully');
+  //   } catch (error) {
+  //     console.error('Error setting price override:', error);
+  //   }
+  // };
 
   return (
     <div className="rooms-page">

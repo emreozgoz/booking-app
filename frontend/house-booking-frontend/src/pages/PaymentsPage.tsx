@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
+import { paymentService } from '../services/api';
 
 interface Payment {
   id: string;
@@ -17,7 +16,6 @@ interface Payment {
 }
 
 const PaymentsPage: React.FC = () => {
-  const navigate = useNavigate();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
@@ -40,16 +38,16 @@ const PaymentsPage: React.FC = () => {
   const fetchPayments = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-      params.append('pageSize', '50');
-      
-      if (filters.status) params.append('status', filters.status);
-      if (filters.method) params.append('method', filters.method);
-      if (filters.fromDate) params.append('fromDate', filters.fromDate);
-      if (filters.toDate) params.append('toDate', filters.toDate);
+      const params = {
+        pageSize: 50,
+        status: filters.status || undefined,
+        method: filters.method || undefined,
+        fromDate: filters.fromDate || undefined,
+        toDate: filters.toDate || undefined
+      };
 
-      const response = await api.get(`/payments?${params.toString()}`);
-      setPayments(response.data.items || []);
+      const response = await paymentService.getPayments(params);
+      setPayments(response.items || []);
     } catch (error) {
       console.error('Error fetching payments:', error);
     } finally {
@@ -59,7 +57,7 @@ const PaymentsPage: React.FC = () => {
 
   const handleMarkAsSuccessful = async (paymentId: string, transactionId: string) => {
     try {
-      await api.post(`/payments/${paymentId}/mark-successful`, { transactionId });
+      await paymentService.markAsSuccessful(paymentId, { transactionId });
       fetchPayments();
       setSelectedPayment(null);
       setActionType(null);
@@ -71,7 +69,7 @@ const PaymentsPage: React.FC = () => {
 
   const handleMarkAsFailed = async (paymentId: string, reason: string) => {
     try {
-      await api.post(`/payments/${paymentId}/mark-failed`, { reason });
+      await paymentService.markAsFailed(paymentId, { reason });
       fetchPayments();
       setSelectedPayment(null);
       setActionType(null);
@@ -83,7 +81,7 @@ const PaymentsPage: React.FC = () => {
 
   const handleRefundPayment = async (paymentId: string, reason: string) => {
     try {
-      await api.post(`/payments/${paymentId}/refund`, { reason });
+      await paymentService.refundPayment(paymentId, { reason });
       fetchPayments();
       setSelectedPayment(null);
       setActionType(null);
@@ -137,10 +135,6 @@ const PaymentsPage: React.FC = () => {
       case 'Cryptocurrency': return '₿';
       default: return '💰';
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
   };
 
   const formatDateTime = (dateString: string) => {

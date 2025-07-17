@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
+import { reviewService } from '../services/api';
 
 interface Review {
   id: string;
@@ -40,19 +40,19 @@ const ReviewsPage: React.FC = () => {
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-      params.append('propertyId', propertyId!);
-      params.append('pageSize', '50');
-      
-      if (filters.isVerified !== null) params.append('isVerified', filters.isVerified.toString());
-      if (filters.isVisible !== null) params.append('isVisible', filters.isVisible.toString());
-      if (filters.isDeleted !== null) params.append('isDeleted', filters.isDeleted.toString());
-      if (filters.isInappropriate !== null) params.append('isInappropriate', filters.isInappropriate.toString());
-      if (filters.minRating) params.append('minRating', filters.minRating.toString());
-      if (filters.maxRating) params.append('maxRating', filters.maxRating.toString());
+      const params = {
+        propertyId: propertyId!,
+        pageSize: 50,
+        isVerified: filters.isVerified,
+        isVisible: filters.isVisible,
+        isDeleted: filters.isDeleted,
+        isInappropriate: filters.isInappropriate,
+        minRating: filters.minRating,
+        maxRating: filters.maxRating
+      };
 
-      const response = await api.get(`/reviews?${params.toString()}`);
-      setReviews(response.data.items || []);
+      const response = await reviewService.getReviews(params);
+      setReviews(response.items || []);
     } catch (error) {
       console.error('Error fetching reviews:', error);
     } finally {
@@ -62,7 +62,7 @@ const ReviewsPage: React.FC = () => {
 
   const handleDeleteReview = async (reviewId: string) => {
     try {
-      await api.delete(`/reviews/${reviewId}`);
+      await reviewService.deleteReview(reviewId);
       fetchReviews();
     } catch (error) {
       console.error('Error deleting review:', error);
@@ -71,7 +71,7 @@ const ReviewsPage: React.FC = () => {
 
   const handleMarkInappropriate = async (reviewId: string) => {
     try {
-      await api.post(`/reviews/${reviewId}/mark-inappropriate`);
+      await reviewService.markAsInappropriate(reviewId);
       fetchReviews();
     } catch (error) {
       console.error('Error marking review as inappropriate:', error);
@@ -87,7 +87,7 @@ const ReviewsPage: React.FC = () => {
     if (!editingReview) return;
 
     try {
-      await api.put(`/reviews/${editingReview.id}/comment`, {
+      await reviewService.updateComment(editingReview.id, {
         comment: editComment
       });
       setEditingReview(null);

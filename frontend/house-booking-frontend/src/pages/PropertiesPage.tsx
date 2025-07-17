@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../services/api';
+import { propertyService } from '../services/api';
 
 interface Property {
   id: string;
@@ -37,18 +37,18 @@ const PropertiesPage: React.FC = () => {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      const params = new URLSearchParams();
-      params.append('pageNumber', '1');
-      params.append('pageSize', '20');
-      
-      if (searchTerm) params.append('searchTerm', searchTerm);
-      if (filters.city) params.append('city', filters.city);
-      if (filters.country) params.append('country', filters.country);
-      if (filters.propertyType) params.append('propertyType', filters.propertyType);
-      if (filters.isActive !== null) params.append('isActive', filters.isActive.toString());
+      const params = {
+        pageNumber: 1,
+        pageSize: 20,
+        searchTerm: searchTerm || undefined,
+        city: filters.city || undefined,
+        country: filters.country || undefined,
+        propertyType: filters.propertyType || undefined,
+        isActive: filters.isActive
+      };
 
-      const response = await api.get(`/properties?${params.toString()}`);
-      setProperties(response.data.items || []);
+      const response = await propertyService.getProperties(params);
+      setProperties(response.items || []);
     } catch (error) {
       console.error('Error fetching properties:', error);
     } finally {
@@ -70,8 +70,11 @@ const PropertiesPage: React.FC = () => {
 
   const handleToggleActive = async (propertyId: string, isActive: boolean) => {
     try {
-      const endpoint = isActive ? 'deactivate' : 'activate';
-      await api.post(`/properties/${propertyId}/${endpoint}`);
+      if (isActive) {
+        await propertyService.deactivateProperty(propertyId);
+      } else {
+        await propertyService.activateProperty(propertyId);
+      }
       fetchProperties();
     } catch (error) {
       console.error('Error toggling property status:', error);

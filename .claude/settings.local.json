@@ -28,7 +28,8 @@
       "Bash(dotnet ef database update:*)",
       "Bash(wget:*)",
       "Bash(sudo dpkg:*)",
-      "Bash(snap install:*)"
+      "Bash(snap install:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": []
   }
