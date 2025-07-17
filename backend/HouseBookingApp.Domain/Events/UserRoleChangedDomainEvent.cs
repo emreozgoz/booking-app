@@ -4,7 +4,7 @@ using HouseBookingApp.Domain.ValueObjects;
 namespace HouseBookingApp.Domain.Events;
 
 public record UserRoleChangedDomainEvent(
-    UserId UserId,
+    Guid UserId,
     UserRole OldRole,
     UserRole NewRole
 ) : IDomainEvent;

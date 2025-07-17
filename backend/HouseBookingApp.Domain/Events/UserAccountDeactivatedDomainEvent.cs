@@ -3,6 +3,6 @@ using HouseBookingApp.Domain.ValueObjects;
 namespace HouseBookingApp.Domain.Events;
 
 public record UserAccountDeactivatedDomainEvent(
-    UserId UserId,
+    Guid UserId,
     Email Email
 ) : IDomainEvent;

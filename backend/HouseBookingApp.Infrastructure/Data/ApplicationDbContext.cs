@@ -11,6 +11,12 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.ConfigureWarnings(warnings =>
+            warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+    }
+
     public DbSet<House> Houses { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<User> Users { get; set; }
@@ -32,6 +38,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        // Configure seed data
+        SeedData.Seed(modelBuilder);
 
         // User Entity
         modelBuilder.Entity<User>(entity =>

@@ -1,8 +1,16 @@
 namespace HouseBookingApp.Domain.Common;
 
-public abstract class BaseEntity
+public abstract class BaseEntity<T>
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public T Id { get; set; } = default!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+}
+
+public abstract class BaseEntity : BaseEntity<Guid>
+{
+    public BaseEntity()
+    {
+        Id = Guid.NewGuid();
+    }
 }

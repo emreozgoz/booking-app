@@ -57,5 +57,7 @@ public enum AmenityCategory
     Kitchen = 5,
     Entertainment = 6,
     Safety = 7,
-    Accessibility = 8
+    Accessibility = 8,
+    Recreation = 9,
+    Convenience = 10
 }

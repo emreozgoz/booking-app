@@ -38,5 +38,7 @@ public enum PropertyCategory
     Resort = 4,
     Hostel = 5,
     BedAndBreakfast = 6,
-    Guesthouse = 7
+    Guesthouse = 7,
+    Villa = 8,
+    Cabin = 9
 }

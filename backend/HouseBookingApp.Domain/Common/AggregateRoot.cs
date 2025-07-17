@@ -2,7 +2,7 @@ using HouseBookingApp.Domain.Events;
 
 namespace HouseBookingApp.Domain.Common;
 
-public abstract class AggregateRoot<T> : BaseEntity
+public abstract class AggregateRoot<T> : BaseEntity<T>
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 

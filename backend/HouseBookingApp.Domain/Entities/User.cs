@@ -5,7 +5,7 @@ using HouseBookingApp.Domain.Events;
 
 namespace HouseBookingApp.Domain.Entities;
 
-public class User : AggregateRoot<UserId>
+public class User : AggregateRoot<Guid>
 {
     public Email Email { get; private set; }
     public string PasswordHash { get; private set; }
@@ -27,7 +27,7 @@ public class User : AggregateRoot<UserId>
     private User() { }
 
     public static User Create(
-        UserId id,
+        Guid id,
         Email email,
         string passwordHash,
         string firstName,

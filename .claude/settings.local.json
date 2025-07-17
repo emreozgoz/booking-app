@@ -25,7 +25,10 @@
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef migrations add AddRoomEntities --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)",
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef migrations add UpdateReviewEntity --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)",
       "Bash(\"/mnt/c/Program Files/dotnet/dotnet.exe\" ef migrations add AddImageEntity --project HouseBookingApp.Infrastructure --startup-project HouseBookingApp.API)",
-      "Bash(dotnet ef database update:*)"
+      "Bash(dotnet ef database update:*)",
+      "Bash(wget:*)",
+      "Bash(sudo dpkg:*)",
+      "Bash(snap install:*)"
     ],
     "deny": []
   }
