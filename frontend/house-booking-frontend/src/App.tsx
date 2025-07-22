@@ -1,5 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import AirbnbHomePage from './pages/AirbnbHomePage';
+import BookingHomePage from './pages/BookingHomePage';
+import BookingPropertyDetailPage from './pages/BookingPropertyDetailPage';
+import BookingLoginPage from './pages/BookingLoginPage';
+import BookingRegisterPage from './pages/BookingRegisterPage';
 import PropertyDetailPage from './pages/PropertyDetailPage';
 import PropertiesPage from './pages/PropertiesPage';
 import PropertyDetailsPage from './pages/PropertyDetailsPage';
@@ -13,19 +18,29 @@ import './App.css';
 import './styles/booking-site.css';
 import './styles/pages.css';
 import './styles/airbnb.css';
+import './styles/booking.css';
 import './styles/auth.css';
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
       <Routes>
-        {/* Authentication pages */}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        {/* New Authentication pages */}
+        <Route path="/login" element={<BookingLoginPage />} />
+        <Route path="/register" element={<BookingRegisterPage />} />
         
-        {/* Airbnb-style public pages */}
-        <Route path="/" element={<AirbnbHomePage />} />
-        <Route path="/property/:id" element={<PropertyDetailPage />} />
+        {/* Old Authentication pages */}
+        <Route path="/old/login" element={<LoginPage />} />
+        <Route path="/old/register" element={<RegisterPage />} />
+        
+        {/* New Booking-style public pages */}
+        <Route path="/" element={<BookingHomePage />} />
+        <Route path="/property/:id" element={<BookingPropertyDetailPage />} />
+        
+        {/* Old Airbnb-style public pages */}
+        <Route path="/old" element={<AirbnbHomePage />} />
+        <Route path="/old/property/:id" element={<PropertyDetailPage />} />
         
         {/* Admin/Management pages */}
         <Route path="/admin" element={<PropertiesPage />} />
@@ -38,7 +53,8 @@ function App() {
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -22,8 +22,10 @@ public class UserRepository : IUserRepository
 
     public async Task<HouseBookingApp.Domain.Entities.User?> GetByEmailAsync(Email email, CancellationToken cancellationToken = default)
     {
+        // Convert Email to string for EF Core comparison
+        string emailString = email;
         return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email.Value == email.Value, cancellationToken);
+            .FirstOrDefaultAsync(u => u.Email == Email.Create(emailString), cancellationToken);
     }
 
     public async Task<IReadOnlyList<HouseBookingApp.Domain.Entities.User>> GetUsersAsync(
@@ -40,7 +42,7 @@ public class UserRepository : IUserRepository
             query = query.Where(u => 
                 u.FirstName.Contains(searchTerm) || 
                 u.LastName.Contains(searchTerm) ||
-                u.Email.Value.Contains(searchTerm));
+                EF.Functions.Like(u.Email.Value, $"%{searchTerm}%"));
         }
 
         if (isActive.HasValue)
@@ -68,7 +70,7 @@ public class UserRepository : IUserRepository
             query = query.Where(u => 
                 u.FirstName.Contains(searchTerm) || 
                 u.LastName.Contains(searchTerm) ||
-                u.Email.Value.Contains(searchTerm));
+                EF.Functions.Like(u.Email.Value, $"%{searchTerm}%"));
         }
 
         if (isActive.HasValue)
@@ -98,13 +100,15 @@ public class UserRepository : IUserRepository
 
     public async Task<HouseBookingApp.Domain.Entities.User?> GetByEmailStringAsync(string email, CancellationToken cancellationToken = default)
     {
+        var emailObj = Email.Create(email);
         return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email.Value == email, cancellationToken);
+            .FirstOrDefaultAsync(u => u.Email == emailObj, cancellationToken);
     }
 
     public async Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken = default)
     {
+        var emailObj = Email.Create(email);
         return await _context.Users
-            .AnyAsync(u => u.Email.Value == email, cancellationToken);
+            .AnyAsync(u => u.Email == emailObj, cancellationToken);
     }
 }
