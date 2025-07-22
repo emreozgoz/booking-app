@@ -1,6 +1,6 @@
 using MediatR;
 using HouseBookingApp.Domain.Entities;
-using HouseBookingApp.Application.Interfaces;
+using HouseBookingApp.Application.Common.Interfaces;
 
 namespace HouseBookingApp.Application.Houses.Commands;
 

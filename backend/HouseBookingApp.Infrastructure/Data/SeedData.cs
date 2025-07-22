@@ -482,6 +482,58 @@ public static class SeedData
                 OwnerId = new Guid("33333333-3333-3333-3333-333333333333"),
                 CreatedAt = BaseDate.AddDays(-20),
                 UpdatedAt = BaseDate.AddDays(-20)
+            },
+            new
+            {
+                Id = new Guid("06666666-6666-6666-6666-666666666666"),
+                Name = "Paris City Center Apartment",
+                Description = "Elegant apartment in the heart of Paris, walking distance to Eiffel Tower.",
+                ImageUrl = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688",
+                IsActive = true,
+                Rating = 4.8,
+                ReviewCount = 20,
+                OwnerId = new Guid("44444444-4444-4444-4444-444444444444"),
+                CreatedAt = BaseDate.AddDays(-15),
+                UpdatedAt = BaseDate.AddDays(-15)
+            },
+            new
+            {
+                Id = new Guid("07777777-7777-7777-7777-777777777777"),
+                Name = "Tokyo Modern Loft",
+                Description = "Contemporary loft in Shibuya district with stunning city views.",
+                ImageUrl = "https://images.unsplash.com/photo-1586023492125-27b2c045efd7",
+                IsActive = true,
+                Rating = 4.5,
+                ReviewCount = 12,
+                OwnerId = new Guid("22222222-2222-2222-2222-222222222222"),
+                CreatedAt = BaseDate.AddDays(-10),
+                UpdatedAt = BaseDate.AddDays(-10)
+            },
+            new
+            {
+                Id = new Guid("08888888-8888-8888-8888-888888888888"),
+                Name = "Istanbul Bosphorus Villa",
+                Description = "Luxury villa with stunning Bosphorus views and private garden.",
+                ImageUrl = "https://images.unsplash.com/photo-1564013799919-ab600027ffc6",
+                IsActive = true,
+                Rating = 4.9,
+                ReviewCount = 18,
+                OwnerId = new Guid("33333333-3333-3333-3333-333333333333"),
+                CreatedAt = BaseDate.AddDays(-5),
+                UpdatedAt = BaseDate.AddDays(-5)
+            },
+            new
+            {
+                Id = new Guid("09999999-9999-9999-9999-999999999999"),
+                Name = "Sydney Harbour Penthouse",
+                Description = "Spectacular penthouse with panoramic harbour views and modern amenities.",
+                ImageUrl = "https://images.unsplash.com/photo-1613977257363-707ba9348227",
+                IsActive = true,
+                Rating = 4.6,
+                ReviewCount = 14,
+                OwnerId = new Guid("44444444-4444-4444-4444-444444444444"),
+                CreatedAt = BaseDate.AddDays(-3),
+                UpdatedAt = BaseDate.AddDays(-3)
             }
         };
 
@@ -493,16 +545,24 @@ public static class SeedData
             new { PropertyId = properties[1].Id, City = "Aspen", Country = "USA", Address = "456 Mountain Road", PostalCode = "81611" },
             new { PropertyId = properties[2].Id, City = "New York", Country = "USA", Address = "789 Broadway", PostalCode = "10003" },
             new { PropertyId = properties[3].Id, City = "Tuscany", Country = "Italy", Address = "321 Via Roma", PostalCode = "50100" },
-            new { PropertyId = properties[4].Id, City = "Lake Tahoe", Country = "USA", Address = "654 Lakeshore Blvd", PostalCode = "96150" }
+            new { PropertyId = properties[4].Id, City = "Lake Tahoe", Country = "USA", Address = "654 Lakeshore Blvd", PostalCode = "96150" },
+            new { PropertyId = properties[5].Id, City = "Paris", Country = "France", Address = "789 Avenue des Champs-Élysées", PostalCode = "75008" },
+            new { PropertyId = properties[6].Id, City = "Tokyo", Country = "Japan", Address = "1-2-3 Shibuya", PostalCode = "150-0002" },
+            new { PropertyId = properties[7].Id, City = "Istanbul", Country = "Turkey", Address = "456 Bosphorus Caddesi", PostalCode = "34349" },
+            new { PropertyId = properties[8].Id, City = "Sydney", Country = "Australia", Address = "123 Harbour Bridge Road", PostalCode = "2000" }
         );
 
         // Seed GeoLocation sub-value objects
         modelBuilder.Entity<Property>().OwnsOne(p => p.Location).OwnsOne(l => l.GeoLocation).HasData(
-            new { LocationPropertyId = properties[0].Id, Latitude = 25.7617, Longitude = -80.1918 },
-            new { LocationPropertyId = properties[1].Id, Latitude = 39.1911, Longitude = -106.8175 },
-            new { LocationPropertyId = properties[2].Id, Latitude = 40.7128, Longitude = -74.0060 },
-            new { LocationPropertyId = properties[3].Id, Latitude = 43.7696, Longitude = 11.2558 },
-            new { LocationPropertyId = properties[4].Id, Latitude = 39.0968, Longitude = -120.0324 }
+            new { LocationPropertyId = properties[0].Id, Latitude = 25.7617, Longitude = -80.1918 }, // Miami Beach, Florida
+            new { LocationPropertyId = properties[1].Id, Latitude = 39.1911, Longitude = -106.8175 }, // Aspen, Colorado
+            new { LocationPropertyId = properties[2].Id, Latitude = 40.7484, Longitude = -73.9857 }, // Times Square, New York
+            new { LocationPropertyId = properties[3].Id, Latitude = 43.7696, Longitude = 11.2558 }, // Florence, Tuscany
+            new { LocationPropertyId = properties[4].Id, Latitude = 39.0968, Longitude = -120.0324 }, // Lake Tahoe, California
+            new { LocationPropertyId = properties[5].Id, Latitude = 48.8566, Longitude = 2.3522 }, // Paris, France
+            new { LocationPropertyId = properties[6].Id, Latitude = 35.6762, Longitude = 139.6503 }, // Tokyo, Japan
+            new { LocationPropertyId = properties[7].Id, Latitude = 41.0082, Longitude = 28.9784 }, // Istanbul, Turkey
+            new { LocationPropertyId = properties[8].Id, Latitude = -33.8688, Longitude = 151.2093 } // Sydney, Australia
         );
 
         // Seed PropertyType value objects
@@ -511,7 +571,11 @@ public static class SeedData
             new { PropertyId = properties[1].Id, Name = "Cabin", Description = "Mountain retreat cabin", Category = PropertyCategory.Cabin },
             new { PropertyId = properties[2].Id, Name = "Apartment", Description = "Urban luxury apartment", Category = PropertyCategory.Apartment },
             new { PropertyId = properties[3].Id, Name = "Farmhouse", Description = "Countryside farmhouse", Category = PropertyCategory.House },
-            new { PropertyId = properties[4].Id, Name = "Resort", Description = "Lakeside resort", Category = PropertyCategory.Resort }
+            new { PropertyId = properties[4].Id, Name = "Resort", Description = "Lakeside resort", Category = PropertyCategory.Resort },
+            new { PropertyId = properties[5].Id, Name = "Apartment", Description = "City center apartment", Category = PropertyCategory.Apartment },
+            new { PropertyId = properties[6].Id, Name = "Loft", Description = "Modern urban loft", Category = PropertyCategory.Apartment },
+            new { PropertyId = properties[7].Id, Name = "Villa", Description = "Luxury Bosphorus villa", Category = PropertyCategory.Villa },
+            new { PropertyId = properties[8].Id, Name = "Penthouse", Description = "Harbour view penthouse", Category = PropertyCategory.Apartment }
         );
     }
 
@@ -1145,7 +1209,7 @@ public static class SeedData
             }
         };
 
-        modelBuilder.Entity<PropertyImageV2>().HasData(propertyImages);
+        // PropertyImageV2 has been removed - using regular PropertyImage instead
     }
 
     private static void SeedRoomImages(ModelBuilder modelBuilder)
@@ -1194,7 +1258,7 @@ public static class SeedData
             }
         };
 
-        modelBuilder.Entity<RoomImageV2>().HasData(roomImages);
+        // RoomImageV2 has been removed - using regular RoomImage instead
     }
 
     private static void SeedRoomAvailabilities(ModelBuilder modelBuilder)

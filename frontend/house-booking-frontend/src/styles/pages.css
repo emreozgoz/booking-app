@@ -291,9 +291,22 @@
   min-width: 150px;
 }
 
+.properties-content {
+  display: flex;
+  gap: 2rem;
+  height: calc(100vh - 250px);
+  min-height: 600px;
+}
+
+.properties-list {
+  flex: 1;
+  overflow-y: auto;
+  max-width: 50%;
+}
+
 .properties-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 2rem;
 }
 
@@ -303,12 +316,89 @@
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   border: 1px solid #eee;
-  transition: transform 0.2s;
+  transition: all 0.2s;
+  cursor: pointer;
 }
 
 .property-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.property-card.selected {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.map-container {
+  flex: 1;
+  min-width: 50%;
+  max-width: 50%;
+  height: 100%;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-header {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.map-header h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.map-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.map-info span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.map-content {
+  flex: 1;
+  height: 100%;
+  min-height: 400px;
+}
+
+.leaflet-map {
+  height: 100%;
+  width: 100%;
+  border-radius: 0 0 12px 12px;
+}
+
+.map-popup {
+  max-width: 250px;
+}
+
+.map-popup h4 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.map-popup p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.popup-actions {
+  margin-top: 1rem;
+}
+
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
 }
 
 .property-header {
@@ -921,6 +1011,21 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .properties-content {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .properties-list {
+    order: 2;
+  }
+  
+  .map-container {
+    order: 1;
+    min-width: auto;
+    height: 400px;
+  }
+  
   .properties-grid {
     grid-template-columns: 1fr;
   }

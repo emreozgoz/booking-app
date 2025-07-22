@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using HouseBookingApp.Application.Interfaces;
 using HouseBookingApp.Application.Common.Interfaces;
 using HouseBookingApp.Infrastructure.Data;
 using HouseBookingApp.Infrastructure.Repositories;
@@ -28,6 +27,8 @@ public static class DependencyInjection
 
         // Register services
         services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<IPasswordHashService, PasswordHashService>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;

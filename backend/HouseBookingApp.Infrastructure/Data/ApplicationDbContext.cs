@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using HouseBookingApp.Domain.Entities;
-using HouseBookingApp.Application.Interfaces;
+using HouseBookingApp.Application.Common.Interfaces;
 using HouseBookingApp.Domain.ValueObjects;
 
 namespace HouseBookingApp.Infrastructure.Data;
@@ -32,8 +32,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     public DbSet<RoomAvailability> RoomAvailabilities { get; set; }
     public DbSet<RoomPriceOverride> RoomPriceOverrides { get; set; }
     public DbSet<Image> Images { get; set; }
-    public DbSet<PropertyImageV2> PropertyImagesV2 { get; set; }
-    public DbSet<RoomImageV2> RoomImagesV2 { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -243,45 +241,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(i => i.UpdatedAt).IsRequired();
         });
 
-        // PropertyImageV2 Entity
-        modelBuilder.Entity<PropertyImageV2>(entity =>
-        {
-            entity.HasKey(pi => pi.Id);
-            entity.Property(pi => pi.CreatedAt).IsRequired();
-            entity.Property(pi => pi.UpdatedAt).IsRequired();
-
-            entity.HasOne(pi => pi.Property)
-                .WithMany()
-                .HasForeignKey(pi => pi.PropertyId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(pi => pi.Image)
-                .WithMany()
-                .HasForeignKey(pi => pi.ImageId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasIndex(pi => new { pi.PropertyId, pi.ImageId }).IsUnique();
-        });
-
-        // RoomImageV2 Entity
-        modelBuilder.Entity<RoomImageV2>(entity =>
-        {
-            entity.HasKey(ri => ri.Id);
-            entity.Property(ri => ri.CreatedAt).IsRequired();
-            entity.Property(ri => ri.UpdatedAt).IsRequired();
-
-            entity.HasOne(ri => ri.Room)
-                .WithMany()
-                .HasForeignKey(ri => ri.RoomId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne(ri => ri.Image)
-                .WithMany()
-                .HasForeignKey(ri => ri.ImageId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasIndex(ri => new { ri.RoomId, ri.ImageId }).IsUnique();
-        });
 
         // Reservation Entity
         modelBuilder.Entity<Reservation>(entity =>

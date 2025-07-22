@@ -33,7 +33,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, R
         var userId = UserId.Create();
 
         var user = HouseBookingApp.Domain.Entities.User.Create(
-            userId,
+            userId.Value,
             email,
             passwordHash,
             request.FirstName,

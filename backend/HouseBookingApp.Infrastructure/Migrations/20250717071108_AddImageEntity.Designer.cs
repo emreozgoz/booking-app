@@ -335,33 +335,7 @@ namespace HouseBookingApp.Infrastructure.Migrations
                     b.ToTable("PropertyImages");
                 });
 
-            modelBuilder.Entity("HouseBookingApp.Domain.Entities.PropertyImageV2", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("PropertyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ImageId");
-
-                    b.HasIndex("PropertyId", "ImageId")
-                        .IsUnique();
-
-                    b.ToTable("PropertyImagesV2");
-                });
+            // PropertyImagesV2 entity configuration removed
 
             modelBuilder.Entity("HouseBookingApp.Domain.Entities.Reservation", b =>
                 {

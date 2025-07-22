@@ -53,6 +53,11 @@ export const propertyService = {
     return response.data;
   },
 
+  getProperty: async (id: string): Promise<any> => {
+    const response = await api.get(`/properties/${id}`);
+    return response.data;
+  },
+
   getPropertyById: async (id: string): Promise<any> => {
     const response = await api.get(`/properties/${id}`);
     return response.data;
@@ -200,6 +205,18 @@ export const reservationService = {
 
   getReservationById: async (id: string): Promise<Reservation> => {
     const response = await api.get(`/reservations/${id}`);
+    return response.data;
+  },
+};
+
+export const authService = {
+  login: async (email: string, password: string): Promise<any> => {
+    const response = await api.post("/auth/login", { email, password });
+    return response.data;
+  },
+
+  register: async (email: string, password: string, firstName: string, lastName: string): Promise<any> => {
+    const response = await api.post("/auth/register", { email, password, firstName, lastName });
     return response.data;
   },
 };
