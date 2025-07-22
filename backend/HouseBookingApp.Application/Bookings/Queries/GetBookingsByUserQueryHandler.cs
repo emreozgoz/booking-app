@@ -1,6 +1,6 @@
 using MediatR;
 using HouseBookingApp.Domain.Entities;
-using HouseBookingApp.Application.Interfaces;
+using HouseBookingApp.Application.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace HouseBookingApp.Application.Bookings.Queries;

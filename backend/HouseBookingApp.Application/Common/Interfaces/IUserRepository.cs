@@ -7,6 +7,7 @@ public interface IUserRepository
 {
     Task<HouseBookingApp.Domain.Entities.User?> GetByIdAsync(UserId id, CancellationToken cancellationToken = default);
     Task<HouseBookingApp.Domain.Entities.User?> GetByEmailAsync(Email email, CancellationToken cancellationToken = default);
+    Task<HouseBookingApp.Domain.Entities.User?> GetByEmailStringAsync(string email, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<HouseBookingApp.Domain.Entities.User>> GetUsersAsync(
         int pageNumber,
         int pageSize,
@@ -20,4 +21,5 @@ public interface IUserRepository
     Task AddAsync(HouseBookingApp.Domain.Entities.User user, CancellationToken cancellationToken = default);
     Task UpdateAsync(HouseBookingApp.Domain.Entities.User user, CancellationToken cancellationToken = default);
     Task DeleteAsync(HouseBookingApp.Domain.Entities.User user, CancellationToken cancellationToken = default);
+    Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken = default);
 }

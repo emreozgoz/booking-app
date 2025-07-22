@@ -7,15 +7,22 @@ import RoomsPage from './pages/RoomsPage';
 import ReviewsPage from './pages/ReviewsPage';
 import PaymentsPage from './pages/PaymentsPage';
 import ImagesPage from './pages/ImagesPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import './App.css';
 import './styles/booking-site.css';
 import './styles/pages.css';
 import './styles/airbnb.css';
+import './styles/auth.css';
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Authentication pages */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
         {/* Airbnb-style public pages */}
         <Route path="/" element={<AirbnbHomePage />} />
         <Route path="/property/:id" element={<PropertyDetailPage />} />

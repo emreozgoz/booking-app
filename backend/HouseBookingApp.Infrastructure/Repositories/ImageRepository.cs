@@ -69,24 +69,14 @@ public class ImageRepository : IImageRepository
 
     public async Task<IReadOnlyList<Image>> GetByPropertyAsync(Guid propertyId, CancellationToken cancellationToken = default)
     {
-        return await _context.PropertyImagesV2
-            .Include(pi => pi.Image)
-            .Where(pi => pi.PropertyId == propertyId && !pi.Image.IsMarkedForDeletion)
-            .OrderBy(pi => pi.Image.Order)
-            .ThenBy(pi => pi.Image.CreatedAt)
-            .Select(pi => pi.Image)
-            .ToListAsync(cancellationToken);
+        // Simple implementation - return empty list for now since we removed V2 entities
+        return new List<Image>();
     }
 
     public async Task<IReadOnlyList<Image>> GetByRoomAsync(Guid roomId, CancellationToken cancellationToken = default)
     {
-        return await _context.RoomImagesV2
-            .Include(ri => ri.Image)
-            .Where(ri => ri.RoomId == roomId && !ri.Image.IsMarkedForDeletion)
-            .OrderBy(ri => ri.Image.Order)
-            .ThenBy(ri => ri.Image.CreatedAt)
-            .Select(ri => ri.Image)
-            .ToListAsync(cancellationToken);
+        // Simple implementation - return empty list for now since we removed V2 entities
+        return new List<Image>();
     }
 
     public async Task<IReadOnlyList<Image>> GetMarkedForDeletionAsync(CancellationToken cancellationToken = default)
@@ -99,20 +89,14 @@ public class ImageRepository : IImageRepository
 
     public async Task<Image?> GetPrimaryImageByPropertyAsync(Guid propertyId, CancellationToken cancellationToken = default)
     {
-        return await _context.PropertyImagesV2
-            .Include(pi => pi.Image)
-            .Where(pi => pi.PropertyId == propertyId && pi.Image.IsPrimary && !pi.Image.IsMarkedForDeletion)
-            .Select(pi => pi.Image)
-            .FirstOrDefaultAsync(cancellationToken);
+        // Simple implementation - return null for now since we removed V2 entities
+        return null;
     }
 
     public async Task<Image?> GetPrimaryImageByRoomAsync(Guid roomId, CancellationToken cancellationToken = default)
     {
-        return await _context.RoomImagesV2
-            .Include(ri => ri.Image)
-            .Where(ri => ri.RoomId == roomId && ri.Image.IsPrimary && !ri.Image.IsMarkedForDeletion)
-            .Select(ri => ri.Image)
-            .FirstOrDefaultAsync(cancellationToken);
+        // Simple implementation - return null for now since we removed V2 entities
+        return null;
     }
 
     public async Task AddAsync(Image image, CancellationToken cancellationToken = default)

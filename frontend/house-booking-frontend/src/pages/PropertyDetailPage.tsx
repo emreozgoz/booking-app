@@ -122,26 +122,27 @@ const PropertyDetailPage: React.FC = () => {
       <div className="property-images">
         <div className="main-image">
           <img
-            src={property.imageUrl || 'https://via.placeholder.com/800x600?text=No+Image'}
+            src={property.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjMwMCIgeT0iMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjE2IiBmaWxsPSIjRDBEMEQwIi8+CjxjaXJjbGUgY3g9IjM0MCIgY3k9IjI0MCIgcj0iMTYiIGZpbGw9IiNBMEEwQTAiLz4KPHBhdGggZD0iTTMyMCAyODBMMzYwIDM0MUw0MDAgMjgwTDQ2MCAzNDBIMzIwVjI4MFoiIGZpbGw9IiNBMEEwQTAiLz4KPHRleHQgeD0iNDAwIiB5PSI0NDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM4MDgwODAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCI+Tm8gSW1hZ2U8L3RleHQ+Cjwvc3ZnPgo='}
             alt={property.name}
             onError={(e) => {
-              e.currentTarget.src = 'https://via.placeholder.com/800x600?text=No+Image';
+              const target = e.target as HTMLImageElement;
+              target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCIgdmlld0JveD0iMCAwIDgwMCA2MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjMwMCIgeT0iMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjE2IiBmaWxsPSIjRDBEMEQwIi8+CjxjaXJjbGUgY3g9IjM0MCIgY3k9IjI0MCIgcj0iMTYiIGZpbGw9IiNBMEEwQTAiLz4KPHBhdGggZD0iTTMyMCAyODBMMzYwIDM0MUw0MDAgMjgwTDQ2MCAzNDBIMzIwVjI4MFoiIGZpbGw9IiNBMEEwQTAiLz4KPHRleHQgeD0iNDAwIiB5PSI0NDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM4MDgwODAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCI+Tm8gSW1hZ2U8L3RleHQ+Cjwvc3ZnPgo=';
             }}
           />
         </div>
         <div className="image-grid">
           {/* Placeholder for additional images */}
           <div className="grid-image">
-            <img src="https://via.placeholder.com/300x200?text=Image+2" alt="Property view 2" />
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iI0QwRDBEMCIvPgo8Y2lyY2xlIGN4PSIxMjAiIGN5PSI3MCIgcj0iOCIgZmlsbD0iI0EwQTBBMCIvPgo8cGF0aCBkPSJNMTEwIDkwTDEzMCAxMTBMMTUwIDkwTDE4MCAxMjBIMTEwVjkwWiIgZmlsbD0iI0EwQTBBMCIvPgo8dGV4dCB4PSIxNTAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzgwODA4MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5JbWFnZSAyPC90ZXh0Pgo8L3N2Zz4K" alt="Property view 2" />
           </div>
           <div className="grid-image">
-            <img src="https://via.placeholder.com/300x200?text=Image+3" alt="Property view 3" />
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iI0QwRDBEMCIvPgo8Y2lyY2xlIGN4PSIxMjAiIGN5PSI3MCIgcj0iOCIgZmlsbD0iI0EwQTBBMCIvPgo8cGF0aCBkPSJNMTEwIDkwTDEzMCAxMTBMMTUwIDkwTDE4MCAxMjBIMTEwVjkwWiIgZmlsbD0iI0EwQTBBMCIvPgo8dGV4dCB4PSIxNTAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzgwODA4MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5JbWFnZSAzPC90ZXh0Pgo8L3N2Zz4K" alt="Property view 3" />
           </div>
           <div className="grid-image">
-            <img src="https://via.placeholder.com/300x200?text=Image+4" alt="Property view 4" />
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iI0QwRDBEMCIvPgo8Y2lyY2xlIGN4PSIxMjAiIGN5PSI3MCIgcj0iOCIgZmlsbD0iI0EwQTBBMCIvPgo8cGF0aCBkPSJNMTEwIDkwTDEzMCAxMTBMMTUwIDkwTDE4MCAxMjBIMTEwVjkwWiIgZmlsbD0iI0EwQTBBMCIvPgo8dGV4dCB4PSIxNTAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzgwODA4MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5JbWFnZSA0PC90ZXh0Pgo8L3N2Zz4K" alt="Property view 4" />
           </div>
           <div className="grid-image">
-            <img src="https://via.placeholder.com/300x200?text=Image+5" alt="Property view 5" />
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjBGMEYwIi8+CjxyZWN0IHg9IjEwMCIgeT0iNTAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iI0QwRDBEMCIvPgo8Y2lyY2xlIGN4PSIxMjAiIGN5PSI3MCIgcj0iOCIgZmlsbD0iI0EwQTBBMCIvPgo8cGF0aCBkPSJNMTEwIDkwTDEzMCAxMTBMMTUwIDkwTDE4MCAxMjBIMTEwVjkwWiIgZmlsbD0iI0EwQTBBMCIvPgo8dGV4dCB4PSIxNTAiIHk9IjE3MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzgwODA4MCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0Ij5JbWFnZSA1PC90ZXh0Pgo8L3N2Zz4K" alt="Property view 5" />
           </div>
         </div>
       </div>

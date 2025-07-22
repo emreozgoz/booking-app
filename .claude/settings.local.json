@@ -29,7 +29,21 @@
       "Bash(wget:*)",
       "Bash(sudo dpkg:*)",
       "Bash(snap install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run lint)",
+      "Bash(cmd.exe /c \"dotnet --version\")",
+      "Bash(cmd.exe /c \"dotnet ef migrations add AddNewPropertiesWithLocations -p HouseBookingApp.Infrastructure -s HouseBookingApp.API\")",
+      "Bash(cmd.exe /c \"dotnet ef database update -p HouseBookingApp.Infrastructure -s HouseBookingApp.API\")",
+      "Bash(sudo apt-get:*)",
+      "Bash(~/.dotnet/dotnet:*)",
+      "Bash(~/.dotnet/tools/dotnet-ef migrations add RemoveV2Entities --startup-project ../HouseBookingApp.API)",
+      "Bash(DOTNET_ROOT=$HOME/.dotnet $HOME/.dotnet/tools/dotnet-ef migrations add RemoveV2Entities --startup-project ../HouseBookingApp.API)",
+      "Bash(PATH=$PATH:$HOME/.dotnet ~/.dotnet/dotnet ef migrations add RemoveV2Entities --project ../HouseBookingApp.Infrastructure)",
+      "Bash(timeout:*)",
+      "Bash(grep:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }

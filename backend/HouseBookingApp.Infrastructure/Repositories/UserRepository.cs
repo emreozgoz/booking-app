@@ -95,4 +95,16 @@ public class UserRepository : IUserRepository
         _context.Users.Remove(user);
         return Task.CompletedTask;
     }
+
+    public async Task<HouseBookingApp.Domain.Entities.User?> GetByEmailStringAsync(string email, CancellationToken cancellationToken = default)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(u => u.Email.Value == email, cancellationToken);
+    }
+
+    public async Task<bool> EmailExistsAsync(string email, CancellationToken cancellationToken = default)
+    {
+        return await _context.Users
+            .AnyAsync(u => u.Email.Value == email, cancellationToken);
+    }
 }
